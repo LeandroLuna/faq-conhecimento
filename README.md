@@ -1,6 +1,6 @@
 # faq-conhecimento
 
-Este é um projeto que propõe o desenvolvimento de um indexador para a base de conhecimento, inspirado no serviço Kendra da AWS. A motivação por trás desse projeto é fornecer uma alternativa mais acessível ao Kendra, que muitas vezes pode ter custos elevados. Em vez de utilizar diretamente o Kendra, a ideia é criar manualmente um indexador utilizando ferramentas de Modelagem de Linguagem Grande (LLM) e Processamento de Linguagem Natural (NLP). Dessa forma, será possível acessar informações de documentos de maneira mais direcionada e eficiente.
+Este é um projeto que propõe o desenvolvimento de um indexador para a base de conhecimento, inspirado no serviço Kendra da AWS. A motivação por trás desse projeto é fornecer uma alternativa mais acessível ao Kendra, que muitas vezes pode ter custos elevados. Em vez de utilizar diretamente o Kendra, a ideia é criar manualmente um indexador utilizando ferramentas de _Large Language Model_ (LLM) e _Natural Language Processing_ (NLP). Dessa forma, será possível acessar informações de documentos de maneira mais direcionada e eficiente.
 
 ## Tecnologias
 
