@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1hd0i5u" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.0.0-alpha.2">
+  <bpmn:process id="Process_0p3a9pq" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_0r21zk8" name="Executar projeto .NET Ficha Inscrição Pós">
+      <bpmn:outgoing>Flow_0e69nic</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0aqyjqc" name="Clonar projeto dotnet/Api.FichaInscricaoPos">
+      <bpmn:incoming>Flow_0e69nic</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gz4lk4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0e69nic" sourceRef="StartEvent_0r21zk8" targetRef="Activity_0aqyjqc" />
+    <bpmn:task id="Activity_0at29l0" name="Abrir solution no Visual Studio como Administrador">
+      <bpmn:incoming>Flow_0gz4lk4</bpmn:incoming>
+      <bpmn:outgoing>Flow_04qg0jd</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0gz4lk4" sourceRef="Activity_0aqyjqc" targetRef="Activity_0at29l0" />
+    <bpmn:task id="Activity_0oajkra" name="Clicar com botão direito no projeto Api.Externa.FichaInscricaoPos">
+      <bpmn:incoming>Flow_04qg0jd</bpmn:incoming>
+      <bpmn:outgoing>Flow_09bfs9d</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_04qg0jd" sourceRef="Activity_0at29l0" targetRef="Activity_0oajkra" />
+    <bpmn:task id="Activity_1pk710j" name="Clicar em &#34;Definir como Projeto de Inicialização&#34;">
+      <bpmn:incoming>Flow_09bfs9d</bpmn:incoming>
+      <bpmn:outgoing>Flow_13znnyp</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_09bfs9d" sourceRef="Activity_0oajkra" targetRef="Activity_1pk710j" />
+    <bpmn:task id="Activity_1adk9xr" name="Buildar projeto (Menu: Compilação &#62; Compilar solução)">
+      <bpmn:incoming>Flow_13znnyp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f2h1xt</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_13znnyp" sourceRef="Activity_1pk710j" targetRef="Activity_1adk9xr" />
+    <bpmn:task id="Activity_19elxeu" name="Executar aplicação &#62; Clicar no play verde &#34;IIS Express&#34;">
+      <bpmn:incoming>Flow_0f2h1xt</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cj4uei</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0uffjfm" name="Clicar com botão direito no projeto Api.FichaInscricaoPos">
+      <bpmn:incoming>Flow_0cj4uei</bpmn:incoming>
+      <bpmn:outgoing>Flow_16zs0gn</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0cj4uei" sourceRef="Activity_19elxeu" targetRef="Activity_0uffjfm" />
+    <bpmn:task id="Activity_1makhey" name="Clicar no menu de contexto na opção &#34;Depurar&#34;">
+      <bpmn:incoming>Flow_16zs0gn</bpmn:incoming>
+      <bpmn:outgoing>Flow_07rhl9p</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_16zs0gn" sourceRef="Activity_0uffjfm" targetRef="Activity_1makhey" />
+    <bpmn:task id="Activity_0a3ids1" name="Clicar em &#34;Iniciar nova instância&#34;">
+      <bpmn:incoming>Flow_07rhl9p</bpmn:incoming>
+      <bpmn:outgoing>Flow_1oph9hy</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_07rhl9p" sourceRef="Activity_1makhey" targetRef="Activity_0a3ids1" />
+    <bpmn:endEvent id="Event_1cl339s" name="Fim">
+      <bpmn:incoming>Flow_1oph9hy</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1oph9hy" sourceRef="Activity_0a3ids1" targetRef="Event_1cl339s" />
+    <bpmn:sequenceFlow id="Flow_0f2h1xt" sourceRef="Activity_1adk9xr" targetRef="Activity_19elxeu" />
+    <bpmn:textAnnotation id="TextAnnotation_04gazu4">
+      <bpmn:text>Neste projeto há duas APIs (Externa - .NET Core e Interna - .NET Framework)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0gj7of4" sourceRef="Activity_0aqyjqc" targetRef="TextAnnotation_04gazu4" />
+    <bpmn:textAnnotation id="TextAnnotation_0ejvnj9">
+      <bpmn:text>Processo baseado  no .NET 4.6.2</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_08gnm90" sourceRef="StartEvent_0r21zk8" targetRef="TextAnnotation_0ejvnj9" />
+    <bpmn:textAnnotation id="TextAnnotation_1yht9hv">
+      <bpmn:text>Como não há rota definida, ele vai abrir uma página com "Forbidden". Status Code: 403.14. Considerar como ok!</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1lx8vfp" sourceRef="Activity_19elxeu" targetRef="TextAnnotation_1yht9hv" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0p3a9pq">
+      <bpmndi:BPMNShape id="TextAnnotation_1yht9hv_di" bpmnElement="TextAnnotation_1yht9hv">
+        <dc:Bounds x="1130" y="100" width="310" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_13znnyp_di" bpmnElement="Flow_13znnyp">
+        <di:waypoint x="830" y="229" />
+        <di:waypoint x="890" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09bfs9d_di" bpmnElement="Flow_09bfs9d">
+        <di:waypoint x="670" y="229" />
+        <di:waypoint x="730" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04qg0jd_di" bpmnElement="Flow_04qg0jd">
+        <di:waypoint x="510" y="229" />
+        <di:waypoint x="570" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gz4lk4_di" bpmnElement="Flow_0gz4lk4">
+        <di:waypoint x="350" y="229" />
+        <di:waypoint x="410" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e69nic_di" bpmnElement="Flow_0e69nic">
+        <di:waypoint x="192" y="229" />
+        <di:waypoint x="250" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cj4uei_di" bpmnElement="Flow_0cj4uei">
+        <di:waypoint x="1150" y="229" />
+        <di:waypoint x="1220" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16zs0gn_di" bpmnElement="Flow_16zs0gn">
+        <di:waypoint x="1320" y="229" />
+        <di:waypoint x="1400" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07rhl9p_di" bpmnElement="Flow_07rhl9p">
+        <di:waypoint x="1500" y="229" />
+        <di:waypoint x="1570" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oph9hy_di" bpmnElement="Flow_1oph9hy">
+        <di:waypoint x="1670" y="229" />
+        <di:waypoint x="1742" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f2h1xt_di" bpmnElement="Flow_0f2h1xt">
+        <di:waypoint x="990" y="229" />
+        <di:waypoint x="1050" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_0r21zk8">
+        <dc:Bounds x="156" y="211" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="134" y="254" width="81" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0aqyjqc_di" bpmnElement="Activity_0aqyjqc">
+        <dc:Bounds x="250" y="189" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0at29l0_di" bpmnElement="Activity_0at29l0">
+        <dc:Bounds x="410" y="189" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0oajkra_di" bpmnElement="Activity_0oajkra">
+        <dc:Bounds x="570" y="189" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pk710j_di" bpmnElement="Activity_1pk710j">
+        <dc:Bounds x="730" y="189" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1adk9xr_di" bpmnElement="Activity_1adk9xr">
+        <dc:Bounds x="890" y="189" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_04gazu4_di" bpmnElement="TextAnnotation_04gazu4">
+        <dc:Bounds x="460" y="80" width="270" height="41" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0ejvnj9_di" bpmnElement="TextAnnotation_0ejvnj9">
+        <dc:Bounds x="200" y="126" width="110" height="34" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19elxeu_di" bpmnElement="Activity_19elxeu">
+        <dc:Bounds x="1050" y="189" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0uffjfm_di" bpmnElement="Activity_0uffjfm">
+        <dc:Bounds x="1220" y="189" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1makhey_di" bpmnElement="Activity_1makhey">
+        <dc:Bounds x="1400" y="189" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0a3ids1_di" bpmnElement="Activity_0a3ids1">
+        <dc:Bounds x="1570" y="189" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1cl339s_di" bpmnElement="Event_1cl339s">
+        <dc:Bounds x="1742" y="211" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1751" y="254" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0gj7of4_di" bpmnElement="Association_0gj7of4">
+        <di:waypoint x="350" y="197" />
+        <di:waypoint x="469" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_08gnm90_di" bpmnElement="Association_08gnm90">
+        <di:waypoint x="186" y="216" />
+        <di:waypoint x="236" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1lx8vfp_di" bpmnElement="Association_1lx8vfp">
+        <di:waypoint x="1128" y="189" />
+        <di:waypoint x="1152" y="155" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Integração Alura"
+  },
+  "host": "apis.fiap.com.br",
+  "basePath": "/integracao-alura/v1",
+  "tags": [
+    {
+      "name": "autenticacao",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/getAuthorizationToken": {
+      "get": {
+        "tags": [
+          "autenticacao"
+        ],
+        "summary": "Url de autenticada para acesso à Alura",
+        "description": "Retorna a URL da alura com o usuário autenticado",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "type": "string",
+            "description": "Username do usuário (rm, cl, nome.sobrenome). Caso o username seja um rm, ele pode ser informado apenas numericamente.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorization recuperado com sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "URL": {
+                  "type": "string",
+                  "example": "https://cursos.alura.com.br/singleSignOn?authorization=token_authorization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Tipo de usuário informado é inválido. Este erro ocorrerá caso a unidade de negócio do usuário não possua um controller definido.",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseError"
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado. Ocorrerá quando o usuário não estiver na tabela de acesso à alura ou não tenha sido possível recuperar o token.",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApiResponseError": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "security": [
+    {
+      "Authorization": []
+    }
+  ]
+}

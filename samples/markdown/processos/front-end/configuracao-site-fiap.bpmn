@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1q0yndu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="12.0.0">
+  <bpmn:collaboration id="Collaboration_0ttijc0">
+    <bpmn:participant id="Participant_15y5k4u" name="Configurar Site" processRef="Process_10xy4in" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_10xy4in" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_0w5d0n0">
+      <bpmn:outgoing>Flow_049bplm</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_1lubfjd">
+      <bpmn:incoming>Flow_049bplm</bpmn:incoming>
+      <bpmn:outgoing>Flow_07gzaei</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0smxvsb</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Activity_0d1sqga" name="Instalar wamp ou xampp com o PHP na versão 5.5.9">
+      <bpmn:incoming>Flow_07gzaei</bpmn:incoming>
+      <bpmn:outgoing>Flow_1avla42</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_1gk4db3" name="Instalar o MAMP com o PHP na versão 5.5.9">
+      <bpmn:incoming>Flow_0smxvsb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kdmjsy</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0v5yg8e" name="Clonar o site da FIAP">
+      <bpmn:incoming>Flow_1avla42</bpmn:incoming>
+      <bpmn:incoming>Flow_0kdmjsy</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ba84c9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0voo0i1" name="Mapear a lista de IP no host">
+      <bpmn:incoming>Flow_1ba84c9</bpmn:incoming>
+      <bpmn:outgoing>Flow_19b0ok7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_1okguih" name="Solicitar  .htaccess e wp-config para colocar na raiz do projeto">
+      <bpmn:incoming>Flow_19b0ok7</bpmn:incoming>
+      <bpmn:outgoing>Flow_000w4z7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0lr7m7t" name="Ligar a VPN e o apache">
+      <bpmn:incoming>Flow_000w4z7</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oahb74</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0ou344a" name="Abrir o terminal na raiz do projeto">
+      <bpmn:incoming>Flow_0oahb74</bpmn:incoming>
+      <bpmn:outgoing>Flow_1i9pkg8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_17l642k" name="Usar o NVM para muda a versão do node para a 10.2.0">
+      <bpmn:incoming>Flow_1i9pkg8</bpmn:incoming>
+      <bpmn:outgoing>Flow_176psqh</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_1irhf0a" name="Ir até o wp-config/themes/fiap2016">
+      <bpmn:incoming>Flow_176psqh</bpmn:incoming>
+      <bpmn:outgoing>Flow_156zsdc</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_1vmbjng" name="Rodar o npm i">
+      <bpmn:incoming>Flow_156zsdc</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yw0yu7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0rhqfvz" name="Rodar npm i -g grunt">
+      <bpmn:incoming>Flow_0yw0yu7</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bdaidh</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0187uv7" name="Rodar grunt deploy">
+      <bpmn:incoming>Flow_1bdaidh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dzgk6z</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0cmgvb6" name="Entrar em localhost:3000/fiap">
+      <bpmn:incoming>Flow_1dzgk6z</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r9qxj7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="Event_0em7yqr">
+      <bpmn:incoming>Flow_0r9qxj7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_049bplm" sourceRef="StartEvent_0w5d0n0" targetRef="Gateway_1lubfjd" />
+    <bpmn:sequenceFlow id="Flow_07gzaei" name="windows" sourceRef="Gateway_1lubfjd" targetRef="Activity_0d1sqga" />
+    <bpmn:sequenceFlow id="Flow_0smxvsb" name="macOS" sourceRef="Gateway_1lubfjd" targetRef="Activity_1gk4db3" />
+    <bpmn:sequenceFlow id="Flow_1avla42" sourceRef="Activity_0d1sqga" targetRef="Activity_0v5yg8e" />
+    <bpmn:sequenceFlow id="Flow_0kdmjsy" sourceRef="Activity_1gk4db3" targetRef="Activity_0v5yg8e" />
+    <bpmn:sequenceFlow id="Flow_1ba84c9" sourceRef="Activity_0v5yg8e" targetRef="Activity_0voo0i1" />
+    <bpmn:sequenceFlow id="Flow_19b0ok7" sourceRef="Activity_0voo0i1" targetRef="Activity_1okguih" />
+    <bpmn:sequenceFlow id="Flow_000w4z7" sourceRef="Activity_1okguih" targetRef="Activity_0lr7m7t" />
+    <bpmn:sequenceFlow id="Flow_0oahb74" sourceRef="Activity_0lr7m7t" targetRef="Activity_0ou344a" />
+    <bpmn:sequenceFlow id="Flow_1i9pkg8" sourceRef="Activity_0ou344a" targetRef="Activity_17l642k" />
+    <bpmn:sequenceFlow id="Flow_176psqh" sourceRef="Activity_17l642k" targetRef="Activity_1irhf0a" />
+    <bpmn:sequenceFlow id="Flow_156zsdc" sourceRef="Activity_1irhf0a" targetRef="Activity_1vmbjng" />
+    <bpmn:sequenceFlow id="Flow_0yw0yu7" sourceRef="Activity_1vmbjng" targetRef="Activity_0rhqfvz" />
+    <bpmn:sequenceFlow id="Flow_1bdaidh" sourceRef="Activity_0rhqfvz" targetRef="Activity_0187uv7" />
+    <bpmn:sequenceFlow id="Flow_1dzgk6z" sourceRef="Activity_0187uv7" targetRef="Activity_0cmgvb6" />
+    <bpmn:sequenceFlow id="Flow_0r9qxj7" sourceRef="Activity_0cmgvb6" targetRef="Event_0em7yqr" />
+    <bpmn:textAnnotation id="TextAnnotation_0cux7v0">
+      <bpmn:text>Configurar projeto do site da FIAP</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_1en9bxv">
+      <bpmn:text>https://gitlab.fiap.com.br/php/fiap</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_0z8snjc">
+      <bpmn:text>192.168.12.5 homo.fiap.com.br
+
+192.168.60.11 bancodeimagens.fiap.com.br
+
+192.168.12.5 homo.colegiomodulo.com.br</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_143zpv4">
+      <bpmn:text>Caso seja xampp, salvar na pasta: htdocs
+ No caso do wampp, salvar na pasta: www</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_0lww7dn">
+      <bpmn:text>Para ver as mudanças em tempo real, rodar:
+npx gulp watch --dir=nome-da-pasta</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0luvtg0" sourceRef="StartEvent_0w5d0n0" targetRef="TextAnnotation_0cux7v0" />
+    <bpmn:association id="Association_1sh6egz" sourceRef="Activity_0v5yg8e" targetRef="TextAnnotation_1en9bxv" />
+    <bpmn:association id="Association_1q7ah2i" sourceRef="Activity_0voo0i1" targetRef="TextAnnotation_0z8snjc" />
+    <bpmn:association id="Association_1aq1he9" sourceRef="Activity_0v5yg8e" targetRef="TextAnnotation_143zpv4" />
+    <bpmn:association id="Association_1b4hqqk" sourceRef="Activity_0187uv7" targetRef="TextAnnotation_0lww7dn" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0ttijc0">
+      <bpmndi:BPMNShape id="Participant_15y5k4u_di" bpmnElement="Participant_15y5k4u" isHorizontal="true">
+        <dc:Bounds x="152" y="84" width="2608" height="410" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0cux7v0_di" bpmnElement="TextAnnotation_0cux7v0">
+        <dc:Bounds x="204" y="170" width="99.99274099883856" height="53.426248548199766" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1en9bxv_di" bpmnElement="TextAnnotation_1en9bxv">
+        <dc:Bounds x="600" y="160" width="219.987091222031" height="38.99526678141136" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0z8snjc_di" bpmnElement="TextAnnotation_0z8snjc">
+        <dc:Bounds x="833" y="109" width="260" height="90" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_143zpv4_di" bpmnElement="TextAnnotation_143zpv4">
+        <dc:Bounds x="630" y="360" width="169.99246987951807" height="69.98978055077454" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0lww7dn_di" bpmnElement="TextAnnotation_0lww7dn">
+        <dc:Bounds x="2340" y="380" width="270" height="40" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_0w5d0n0">
+        <dc:Bounds x="236" y="272" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1lubfjd_di" bpmnElement="Gateway_1lubfjd" isMarkerVisible="true">
+        <dc:Bounds x="325" y="265" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0d1sqga_di" bpmnElement="Activity_0d1sqga">
+        <dc:Bounds x="430" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gk4db3_di" bpmnElement="Activity_1gk4db3">
+        <dc:Bounds x="430" y="300" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0v5yg8e_di" bpmnElement="Activity_0v5yg8e">
+        <dc:Bounds x="630" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0voo0i1_di" bpmnElement="Activity_0voo0i1">
+        <dc:Bounds x="870" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1okguih_di" bpmnElement="Activity_1okguih">
+        <dc:Bounds x="1070" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0lr7m7t_di" bpmnElement="Activity_0lr7m7t">
+        <dc:Bounds x="1260" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ou344a_di" bpmnElement="Activity_0ou344a">
+        <dc:Bounds x="1450" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17l642k_di" bpmnElement="Activity_17l642k">
+        <dc:Bounds x="1640" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1irhf0a_di" bpmnElement="Activity_1irhf0a">
+        <dc:Bounds x="1830" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vmbjng_di" bpmnElement="Activity_1vmbjng">
+        <dc:Bounds x="2020" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rhqfvz_di" bpmnElement="Activity_0rhqfvz">
+        <dc:Bounds x="2190" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0187uv7_di" bpmnElement="Activity_0187uv7">
+        <dc:Bounds x="2360" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cmgvb6_di" bpmnElement="Activity_0cmgvb6">
+        <dc:Bounds x="2530" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0em7yqr_di" bpmnElement="Event_0em7yqr">
+        <dc:Bounds x="2702" y="272" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0luvtg0_di" bpmnElement="Association_0luvtg0">
+        <di:waypoint x="254" y="272" />
+        <di:waypoint x="254" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1sh6egz_di" bpmnElement="Association_1sh6egz">
+        <di:waypoint x="680" y="250" />
+        <di:waypoint x="680" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1q7ah2i_di" bpmnElement="Association_1q7ah2i">
+        <di:waypoint x="920" y="250" />
+        <di:waypoint x="920" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1aq1he9_di" bpmnElement="Association_1aq1he9">
+        <di:waypoint x="680" y="330" />
+        <di:waypoint x="680" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1b4hqqk_di" bpmnElement="Association_1b4hqqk">
+        <di:waypoint x="2410" y="330" />
+        <di:waypoint x="2410" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_049bplm_di" bpmnElement="Flow_049bplm">
+        <di:waypoint x="272" y="290" />
+        <di:waypoint x="325" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07gzaei_di" bpmnElement="Flow_07gzaei">
+        <di:waypoint x="350" y="265" />
+        <di:waypoint x="350" y="230" />
+        <di:waypoint x="430" y="230" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="368" y="245" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0smxvsb_di" bpmnElement="Flow_0smxvsb">
+        <di:waypoint x="350" y="315" />
+        <di:waypoint x="350" y="340" />
+        <di:waypoint x="430" y="340" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="371" y="343" width="37" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1avla42_di" bpmnElement="Flow_1avla42">
+        <di:waypoint x="530" y="230" />
+        <di:waypoint x="580" y="230" />
+        <di:waypoint x="580" y="290" />
+        <di:waypoint x="630" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kdmjsy_di" bpmnElement="Flow_0kdmjsy">
+        <di:waypoint x="530" y="340" />
+        <di:waypoint x="580" y="340" />
+        <di:waypoint x="580" y="290" />
+        <di:waypoint x="630" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ba84c9_di" bpmnElement="Flow_1ba84c9">
+        <di:waypoint x="730" y="290" />
+        <di:waypoint x="870" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19b0ok7_di" bpmnElement="Flow_19b0ok7">
+        <di:waypoint x="970" y="290" />
+        <di:waypoint x="1070" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_000w4z7_di" bpmnElement="Flow_000w4z7">
+        <di:waypoint x="1170" y="290" />
+        <di:waypoint x="1260" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oahb74_di" bpmnElement="Flow_0oahb74">
+        <di:waypoint x="1360" y="290" />
+        <di:waypoint x="1450" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1i9pkg8_di" bpmnElement="Flow_1i9pkg8">
+        <di:waypoint x="1550" y="290" />
+        <di:waypoint x="1640" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_176psqh_di" bpmnElement="Flow_176psqh">
+        <di:waypoint x="1740" y="290" />
+        <di:waypoint x="1830" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_156zsdc_di" bpmnElement="Flow_156zsdc">
+        <di:waypoint x="1930" y="290" />
+        <di:waypoint x="2020" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yw0yu7_di" bpmnElement="Flow_0yw0yu7">
+        <di:waypoint x="2120" y="290" />
+        <di:waypoint x="2190" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bdaidh_di" bpmnElement="Flow_1bdaidh">
+        <di:waypoint x="2290" y="290" />
+        <di:waypoint x="2360" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dzgk6z_di" bpmnElement="Flow_1dzgk6z">
+        <di:waypoint x="2460" y="290" />
+        <di:waypoint x="2530" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r9qxj7_di" bpmnElement="Flow_0r9qxj7">
+        <di:waypoint x="2630" y="290" />
+        <di:waypoint x="2702" y="290" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

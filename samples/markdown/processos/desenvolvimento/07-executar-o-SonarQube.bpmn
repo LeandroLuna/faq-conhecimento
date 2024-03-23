@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0zxpdqc" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.3.1">
+  <bpmn:process id="Process_1xxm7mz" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_0xruhyn">
+      <bpmn:outgoing>Flow_1nfp41g</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0bvc123" name="Executa o comando do Sonar do projeto">
+      <bpmn:incoming>Flow_1nfp41g</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ph0avd</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1nfp41g" sourceRef="StartEvent_0xruhyn" targetRef="Activity_0bvc123" />
+    <bpmn:task id="Activity_15hphtb" name="Abre a página do SonarQube">
+      <bpmn:incoming>Flow_1ph0avd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l3oysf</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1ph0avd" sourceRef="Activity_0bvc123" targetRef="Activity_15hphtb" />
+    <bpmn:task id="Activity_09h0w0c" name="Analisa as métricas e problemas encontrados">
+      <bpmn:incoming>Flow_0l3oysf</bpmn:incoming>
+      <bpmn:outgoing>Flow_1n4au45</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0l3oysf" sourceRef="Activity_15hphtb" targetRef="Activity_09h0w0c" />
+    <bpmn:endEvent id="Event_1w7as9f">
+      <bpmn:incoming>Flow_1n4au45</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1n4au45" sourceRef="Activity_09h0w0c" targetRef="Event_1w7as9f" />
+    <bpmn:textAnnotation id="TextAnnotation_1h3pqt8">
+      <bpmn:text>Este comando varia de acordo com a linguagem e é fornecido pelo Sonar no momento da criação do projeto</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1gf18bh" sourceRef="Activity_0bvc123" targetRef="TextAnnotation_1h3pqt8" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1xxm7mz">
+      <bpmndi:BPMNShape id="TextAnnotation_1h3pqt8_di" bpmnElement="TextAnnotation_1h3pqt8">
+        <dc:Bounds x="330" y="80" width="480" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1nfp41g_di" bpmnElement="Flow_1nfp41g">
+        <di:waypoint x="192" y="229" />
+        <di:waypoint x="250" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ph0avd_di" bpmnElement="Flow_1ph0avd">
+        <di:waypoint x="350" y="229" />
+        <di:waypoint x="410" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l3oysf_di" bpmnElement="Flow_0l3oysf">
+        <di:waypoint x="510" y="229" />
+        <di:waypoint x="570" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n4au45_di" bpmnElement="Flow_1n4au45">
+        <di:waypoint x="670" y="229" />
+        <di:waypoint x="732" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_0xruhyn">
+        <dc:Bounds x="156" y="211" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bvc123_di" bpmnElement="Activity_0bvc123">
+        <dc:Bounds x="250" y="189" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15hphtb_di" bpmnElement="Activity_15hphtb">
+        <dc:Bounds x="410" y="189" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09h0w0c_di" bpmnElement="Activity_09h0w0c">
+        <dc:Bounds x="570" y="189" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1w7as9f_di" bpmnElement="Event_1w7as9f">
+        <dc:Bounds x="732" y="211" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1gf18bh_di" bpmnElement="Association_1gf18bh">
+        <di:waypoint x="324" y="189" />
+        <di:waypoint x="353" y="140" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

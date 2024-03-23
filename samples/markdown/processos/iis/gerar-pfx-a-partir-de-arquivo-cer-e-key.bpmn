@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1u42w7e" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.1.0">
+  <bpmn:process id="Process_1xlklxu" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_0ph0ua1">
+      <bpmn:outgoing>Flow_17i9ji1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_1nvtv17" name="Abrir diretório com os arquivos .key e .crt necessários">
+      <bpmn:incoming>Flow_17i9ji1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0e3pn13</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_17i9ji1" sourceRef="StartEvent_0ph0ua1" targetRef="Activity_1nvtv17" />
+    <bpmn:task id="Activity_1thltcq" name="Abrir o terminal no Linux">
+      <bpmn:incoming>Flow_0e3pn13</bpmn:incoming>
+      <bpmn:outgoing>Flow_1h2hpgk</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0e3pn13" sourceRef="Activity_1nvtv17" targetRef="Activity_1thltcq" />
+    <bpmn:task id="Activity_0h2lrpq" name="Digitar o comando de criação do .pfx">
+      <bpmn:incoming>Flow_1h2hpgk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y3vexe</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1h2hpgk" sourceRef="Activity_1thltcq" targetRef="Activity_0h2lrpq" />
+    <bpmn:task id="Activity_1bh4biw" name="Fazer upload para o servidor destino">
+      <bpmn:incoming>Flow_1y3vexe</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xe8f1b</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1y3vexe" sourceRef="Activity_0h2lrpq" targetRef="Activity_1bh4biw" />
+    <bpmn:task id="Activity_1qit005" name="Clicar no arquivo .pfx e realizar a instalação no servidor destino">
+      <bpmn:incoming>Flow_1xe8f1b</bpmn:incoming>
+      <bpmn:outgoing>Flow_1e2tnjp</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1xe8f1b" sourceRef="Activity_1bh4biw" targetRef="Activity_1qit005" />
+    <bpmn:sequenceFlow id="Flow_1e2tnjp" sourceRef="Activity_1qit005" targetRef="Activity_0ypuv70" />
+    <bpmn:subProcess id="Activity_0ypuv70" name="Realizar &#34;Instalação de certificados SSL no IIS&#34;&#10;.">
+      <bpmn:incoming>Flow_1e2tnjp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hq4f31</bpmn:outgoing>
+    </bpmn:subProcess>
+    <bpmn:endEvent id="Event_0b2tdt4">
+      <bpmn:incoming>Flow_0hq4f31</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0hq4f31" sourceRef="Activity_0ypuv70" targetRef="Event_0b2tdt4" />
+    <bpmn:textAnnotation id="TextAnnotation_1b2r45u">
+      <bpmn:text>O arquivo .key é a chave privada do certificado SSL
+e os arquivos .crt serão o certificado a ser instalado e o certificado root</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0yjd69m" sourceRef="Activity_1nvtv17" targetRef="TextAnnotation_1b2r45u" />
+    <bpmn:textAnnotation id="TextAnnotation_0xg2mnu">
+      <bpmn:text>Se for via FTP ou alguma comunicação não segura, não esquecer de zipar com senha forte
+e salvar em um local que não seja possível baixar via navegador</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_09g5elf" sourceRef="Activity_1bh4biw" targetRef="TextAnnotation_0xg2mnu" />
+    <bpmn:textAnnotation id="TextAnnotation_0lde5m1">
+      <bpmn:text>Next &gt; Next &gt; Finish</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_174gikk" sourceRef="Activity_1qit005" targetRef="TextAnnotation_0lde5m1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1xlklxu">
+      <bpmndi:BPMNShape id="TextAnnotation_0xg2mnu_di" bpmnElement="TextAnnotation_0xg2mnu">
+        <dc:Bounds x="680" y="280" width="500" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1b2r45u_di" bpmnElement="TextAnnotation_1b2r45u">
+        <dc:Bounds x="320" y="80" width="700" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0lde5m1_di" bpmnElement="TextAnnotation_0lde5m1">
+        <dc:Bounds x="910" y="80" width="170" height="31" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_17i9ji1_di" bpmnElement="Flow_17i9ji1">
+        <di:waypoint x="192" y="199" />
+        <di:waypoint x="250" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e3pn13_di" bpmnElement="Flow_0e3pn13">
+        <di:waypoint x="350" y="199" />
+        <di:waypoint x="390" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1h2hpgk_di" bpmnElement="Flow_1h2hpgk">
+        <di:waypoint x="490" y="199" />
+        <di:waypoint x="530" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y3vexe_di" bpmnElement="Flow_1y3vexe">
+        <di:waypoint x="630" y="199" />
+        <di:waypoint x="670" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xe8f1b_di" bpmnElement="Flow_1xe8f1b">
+        <di:waypoint x="770" y="199" />
+        <di:waypoint x="810" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1e2tnjp_di" bpmnElement="Flow_1e2tnjp">
+        <di:waypoint x="910" y="199" />
+        <di:waypoint x="950" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hq4f31_di" bpmnElement="Flow_0hq4f31">
+        <di:waypoint x="1050" y="199" />
+        <di:waypoint x="1092" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_0ph0ua1">
+        <dc:Bounds x="156" y="181" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1nvtv17_di" bpmnElement="Activity_1nvtv17">
+        <dc:Bounds x="250" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1thltcq_di" bpmnElement="Activity_1thltcq">
+        <dc:Bounds x="390" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h2lrpq_di" bpmnElement="Activity_0h2lrpq">
+        <dc:Bounds x="530" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bh4biw_di" bpmnElement="Activity_1bh4biw">
+        <dc:Bounds x="670" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qit005_di" bpmnElement="Activity_1qit005">
+        <dc:Bounds x="810" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0b2tdt4_di" bpmnElement="Event_0b2tdt4">
+        <dc:Bounds x="1092" y="181" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_09g5elf_di" bpmnElement="Association_09g5elf">
+        <di:waypoint x="724" y="239" />
+        <di:waypoint x="728" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0yhs3uw_di" bpmnElement="Activity_0ypuv70">
+        <dc:Bounds x="950" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0yjd69m_di" bpmnElement="Association_0yjd69m">
+        <di:waypoint x="327" y="159" />
+        <di:waypoint x="353" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_174gikk_di" bpmnElement="Association_174gikk">
+        <di:waypoint x="895" y="159" />
+        <di:waypoint x="937" y="111" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_156x0bv">
+    <bpmndi:BPMNPlane id="BPMNPlane_04l1e0t" bpmnElement="Activity_0ypuv70" />
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

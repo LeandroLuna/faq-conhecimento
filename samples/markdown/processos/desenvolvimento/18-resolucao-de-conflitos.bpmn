@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0zu9mlz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.3.1">
+  <bpmn:process id="Process_1lbn17r" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_090520e">
+      <bpmn:outgoing>Flow_1fadbeh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_03o960a" name="Executar git status para listagem dos arquivos conflitados">
+      <bpmn:incoming>Flow_1fadbeh</bpmn:incoming>
+      <bpmn:outgoing>Flow_11on4n8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1fadbeh" sourceRef="StartEvent_090520e" targetRef="Activity_03o960a" />
+    <bpmn:task id="Activity_1qb0tzn" name="Procurar no arquivo inteiro todos os conflitos">
+      <bpmn:incoming>Flow_11on4n8</bpmn:incoming>
+      <bpmn:outgoing>Flow_14qneyi</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_11on4n8" sourceRef="Activity_03o960a" targetRef="Activity_1qb0tzn" />
+    <bpmn:task id="Activity_1ciicim" name="Solucionar cada conflito">
+      <bpmn:incoming>Flow_14qneyi</bpmn:incoming>
+      <bpmn:outgoing>Flow_1os43hg</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_14qneyi" sourceRef="Activity_1qb0tzn" targetRef="Activity_1ciicim" />
+    <bpmn:sequenceFlow id="Flow_1os43hg" sourceRef="Activity_1ciicim" targetRef="Activity_0obndqz" />
+    <bpmn:subProcess id="Activity_0obndqz" name="Realizar o processo de commit">
+      <bpmn:incoming>Flow_1os43hg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wj2nhw</bpmn:outgoing>
+    </bpmn:subProcess>
+    <bpmn:endEvent id="Event_1aello1">
+      <bpmn:incoming>Flow_0wj2nhw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0wj2nhw" sourceRef="Activity_0obndqz" targetRef="Event_1aello1" />
+    <bpmn:textAnnotation id="TextAnnotation_1qz1aa1">
+      <bpmn:text>Deve-se repetir para todos os arquivos conflitados</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0y7wl4d" sourceRef="Activity_1qb0tzn" targetRef="TextAnnotation_1qz1aa1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1lbn17r">
+      <bpmndi:BPMNShape id="TextAnnotation_1qz1aa1_di" bpmnElement="TextAnnotation_1qz1aa1">
+        <dc:Bounds x="550" y="80" width="280" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1fadbeh_di" bpmnElement="Flow_1fadbeh">
+        <di:waypoint x="192" y="199" />
+        <di:waypoint x="250" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11on4n8_di" bpmnElement="Flow_11on4n8">
+        <di:waypoint x="350" y="199" />
+        <di:waypoint x="410" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14qneyi_di" bpmnElement="Flow_14qneyi">
+        <di:waypoint x="510" y="199" />
+        <di:waypoint x="570" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1os43hg_di" bpmnElement="Flow_1os43hg">
+        <di:waypoint x="670" y="199" />
+        <di:waypoint x="730" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wj2nhw_di" bpmnElement="Flow_0wj2nhw">
+        <di:waypoint x="830" y="199" />
+        <di:waypoint x="892" y="199" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_090520e">
+        <dc:Bounds x="156" y="181" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03o960a_di" bpmnElement="Activity_03o960a">
+        <dc:Bounds x="250" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qb0tzn_di" bpmnElement="Activity_1qb0tzn">
+        <dc:Bounds x="410" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ciicim_di" bpmnElement="Activity_1ciicim">
+        <dc:Bounds x="570" y="159" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1aello1_di" bpmnElement="Event_1aello1">
+        <dc:Bounds x="892" y="181" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0e231vu_di" bpmnElement="Activity_0obndqz">
+        <dc:Bounds x="730" y="159" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0y7wl4d_di" bpmnElement="Association_0y7wl4d">
+        <di:waypoint x="504" y="160" />
+        <di:waypoint x="578" y="110" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_0c1mill">
+    <bpmndi:BPMNPlane id="BPMNPlane_1587up3" bpmnElement="Activity_0obndqz" />
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

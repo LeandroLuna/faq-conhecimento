@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1t3ow8f" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.0.2">
+  <bpmn:process id="Process_16zfrxn" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1cs521r" name="Aplicação de bolsa em débitos">
+      <bpmn:outgoing>Flow_07yaq3o</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0w4dlk6" name="1. Aluno recebe o direito a uma bolsa de estudos">
+      <bpmn:incoming>Flow_07yaq3o</bpmn:incoming>
+      <bpmn:outgoing>Flow_1i6y8pv</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_07yaq3o" sourceRef="StartEvent_1cs521r" targetRef="Activity_0w4dlk6" />
+    <bpmn:task id="Activity_1pv2t67" name="2. Equipe Help Center aplica a bolsa via sistema Intranet.Bolsa">
+      <bpmn:incoming>Flow_1i6y8pv</bpmn:incoming>
+      <bpmn:outgoing>Flow_0mfax8v</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1i6y8pv" sourceRef="Activity_0w4dlk6" targetRef="Activity_1pv2t67" />
+    <bpmn:task id="Activity_0ubpn4z" name="3. Sistema cadastra um registro na tabela FNBolsa">
+      <bpmn:incoming>Flow_0mfax8v</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ocgcwy</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0mfax8v" sourceRef="Activity_1pv2t67" targetRef="Activity_0ubpn4z" />
+    <bpmn:task id="Activity_1gnjmwy" name="4. São inseridos registros na FNBolsaDebitos">
+      <bpmn:incoming>Flow_0ocgcwy</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rl91fg</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0ocgcwy" sourceRef="Activity_0ubpn4z" targetRef="Activity_1gnjmwy" />
+    <bpmn:task id="Activity_0qxvgpy" name="5. São inseridos registros na FNBolsaAplicada">
+      <bpmn:incoming>Flow_0rl91fg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zhzb21</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0rl91fg" sourceRef="Activity_1gnjmwy" targetRef="Activity_0qxvgpy" />
+    <bpmn:task id="Activity_04xwde4" name="6. Sistema atualiza a porcentagem na coluna Bolsa da FNDebitos">
+      <bpmn:incoming>Flow_0zhzb21</bpmn:incoming>
+      <bpmn:outgoing>Flow_081qe1t</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0zhzb21" sourceRef="Activity_0qxvgpy" targetRef="Activity_04xwde4" />
+    <bpmn:endEvent id="Event_0assfgv" name="Fim">
+      <bpmn:incoming>Flow_081qe1t</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_081qe1t" sourceRef="Activity_04xwde4" targetRef="Event_0assfgv" />
+    <bpmn:textAnnotation id="TextAnnotation_0iedk26">
+      <bpmn:text>Este registro informa:
+- RM do aluno
+- Período de aplicação da bolsa
+- Tipo de bolsa
+- Porcentagem
+E outras informações que apenas algumas bolsas possuem</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1k38s98" sourceRef="Activity_0ubpn4z" targetRef="TextAnnotation_0iedk26" />
+    <bpmn:textAnnotation id="TextAnnotation_1l16x2x">
+      <bpmn:text>Sistema insere um registro para cada relação entre a bolsa e um débito</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0fpxu5o" sourceRef="Activity_1gnjmwy" targetRef="TextAnnotation_1l16x2x" />
+    <bpmn:textAnnotation id="TextAnnotation_1kxpzrd">
+      <bpmn:text>Cada registro armazena:
+- Tipo de bolsa
+- Código do débito
+- Porcentagem</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1gpfuse" sourceRef="Activity_0qxvgpy" targetRef="TextAnnotation_1kxpzrd" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_16zfrxn">
+      <bpmndi:BPMNShape id="TextAnnotation_0iedk26_di" bpmnElement="TextAnnotation_0iedk26">
+        <dc:Bounds x="570" y="80" width="207.98971460340994" height="112.67605633802818" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1l16x2x_di" bpmnElement="TextAnnotation_1l16x2x">
+        <dc:Bounds x="730" y="400" width="159.29623795404004" height="54.85544848035582" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1kxpzrd_di" bpmnElement="TextAnnotation_1kxpzrd">
+        <dc:Bounds x="890" y="107" width="160.7788176426983" height="71.16382505559673" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_07yaq3o_di" bpmnElement="Flow_07yaq3o">
+        <di:waypoint x="192" y="289" />
+        <di:waypoint x="250" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1i6y8pv_di" bpmnElement="Flow_1i6y8pv">
+        <di:waypoint x="350" y="289" />
+        <di:waypoint x="410" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mfax8v_di" bpmnElement="Flow_0mfax8v">
+        <di:waypoint x="510" y="289" />
+        <di:waypoint x="570" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ocgcwy_di" bpmnElement="Flow_0ocgcwy">
+        <di:waypoint x="670" y="289" />
+        <di:waypoint x="730" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rl91fg_di" bpmnElement="Flow_0rl91fg">
+        <di:waypoint x="830" y="289" />
+        <di:waypoint x="890" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zhzb21_di" bpmnElement="Flow_0zhzb21">
+        <di:waypoint x="990" y="289" />
+        <di:waypoint x="1050" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_081qe1t_di" bpmnElement="Flow_081qe1t">
+        <di:waypoint x="1150" y="289" />
+        <di:waypoint x="1212" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1cs521r">
+        <dc:Bounds x="156" y="271" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="132" y="314" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0w4dlk6_di" bpmnElement="Activity_0w4dlk6">
+        <dc:Bounds x="250" y="249" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pv2t67_di" bpmnElement="Activity_1pv2t67">
+        <dc:Bounds x="410" y="249" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ubpn4z_di" bpmnElement="Activity_0ubpn4z">
+        <dc:Bounds x="570" y="249" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gnjmwy_di" bpmnElement="Activity_1gnjmwy">
+        <dc:Bounds x="730" y="249" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04xwde4_di" bpmnElement="Activity_04xwde4">
+        <dc:Bounds x="1050" y="249" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0assfgv_di" bpmnElement="Event_0assfgv">
+        <dc:Bounds x="1212" y="271" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1220" y="243" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qxvgpy_di" bpmnElement="Activity_0qxvgpy">
+        <dc:Bounds x="890" y="249" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1k38s98_di" bpmnElement="Association_1k38s98">
+        <di:waypoint x="620" y="249" />
+        <di:waypoint x="620" y="193" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0fpxu5o_di" bpmnElement="Association_0fpxu5o">
+        <di:waypoint x="780" y="329" />
+        <di:waypoint x="780" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1gpfuse_di" bpmnElement="Association_1gpfuse">
+        <di:waypoint x="940" y="249" />
+        <di:waypoint x="940" y="178" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1d5dy2x" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.1.0">
+  <bpmn:process id="Process_1pplb0p" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_0do98y6">
+      <bpmn:outgoing>Flow_1lixp8s</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0qlbbwc" name="Executar job &#34;Copia Backup Diario Para Dev&#34; no 10.9">
+      <bpmn:incoming>Flow_1lixp8s</bpmn:incoming>
+      <bpmn:outgoing>Flow_14s1pft</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1lixp8s" sourceRef="StartEvent_0do98y6" targetRef="Activity_0qlbbwc" />
+    <bpmn:task id="Activity_0sjodir" name="Acessar o servidor 10.20">
+      <bpmn:incoming>Flow_14s1pft</bpmn:incoming>
+      <bpmn:outgoing>Flow_1aks4uw</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_14s1pft" sourceRef="Activity_0qlbbwc" targetRef="Activity_0sjodir" />
+    <bpmn:task id="Activity_0nz5hpm" name="Executar o Shell /banco/shell_restaura.sh">
+      <bpmn:incoming>Flow_1aks4uw</bpmn:incoming>
+      <bpmn:outgoing>Flow_03obk8a</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1aks4uw" sourceRef="Activity_0sjodir" targetRef="Activity_0nz5hpm" />
+    <bpmn:endEvent id="Event_17pfvf1">
+      <bpmn:incoming>Flow_03obk8a</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_03obk8a" sourceRef="Activity_0nz5hpm" targetRef="Event_17pfvf1" />
+    <bpmn:textAnnotation id="TextAnnotation_1wuo3jq">
+      <bpmn:text>Ele executa um .bat E:\Bats\CopiaBackupDiarioDev.bat</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1to2urd" sourceRef="Activity_0qlbbwc" targetRef="TextAnnotation_1wuo3jq" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1pplb0p">
+      <bpmndi:BPMNShape id="TextAnnotation_1wuo3jq_di" bpmnElement="TextAnnotation_1wuo3jq">
+        <dc:Bounds x="350" y="80" width="340" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1lixp8s_di" bpmnElement="Flow_1lixp8s">
+        <di:waypoint x="192" y="209" />
+        <di:waypoint x="250" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14s1pft_di" bpmnElement="Flow_14s1pft">
+        <di:waypoint x="350" y="209" />
+        <di:waypoint x="410" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1aks4uw_di" bpmnElement="Flow_1aks4uw">
+        <di:waypoint x="510" y="209" />
+        <di:waypoint x="570" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03obk8a_di" bpmnElement="Flow_03obk8a">
+        <di:waypoint x="670" y="209" />
+        <di:waypoint x="732" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_0do98y6">
+        <dc:Bounds x="156" y="191" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qlbbwc_di" bpmnElement="Activity_0qlbbwc">
+        <dc:Bounds x="250" y="169" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sjodir_di" bpmnElement="Activity_0sjodir">
+        <dc:Bounds x="410" y="169" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nz5hpm_di" bpmnElement="Activity_0nz5hpm">
+        <dc:Bounds x="570" y="169" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17pfvf1_di" bpmnElement="Event_17pfvf1">
+        <dc:Bounds x="732" y="191" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1to2urd_di" bpmnElement="Association_1to2urd">
+        <di:waypoint x="335" y="169" />
+        <di:waypoint x="387" y="110" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

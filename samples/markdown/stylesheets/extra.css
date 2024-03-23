@@ -1,0 +1,5 @@
+#swagger-ui .language-json,
+#swagger-ui .language-bash {
+    background: #333;
+    color: #fff;
+}

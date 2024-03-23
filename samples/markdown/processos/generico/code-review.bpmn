@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_195yrki" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.1.0">
+  <bpmn:process id="Process_0xnvvr4" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_0ekkhnd">
+      <bpmn:outgoing>Flow_0m8wmxw</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_1p7g172" name="1) Enteder o que a alteração resolve / propósito da implementação">
+      <bpmn:incoming>Flow_0m8wmxw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0d87f9r</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0m8wmxw" sourceRef="StartEvent_0ekkhnd" targetRef="Activity_1p7g172" />
+    <bpmn:task id="Activity_0nk5d2z" name="2) Verificar se implementação passou pelo SonarQube">
+      <bpmn:incoming>Flow_0d87f9r</bpmn:incoming>
+      <bpmn:outgoing>Flow_1iwqrji</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0d87f9r" sourceRef="Activity_1p7g172" targetRef="Activity_0nk5d2z" />
+    <bpmn:sequenceFlow id="Flow_1iwqrji" sourceRef="Activity_0nk5d2z" targetRef="Activity_15sxi4b" />
+    <bpmn:task id="Activity_15sxi4b" name="3) Validar em qual branch foi realizada as alterações">
+      <bpmn:incoming>Flow_1iwqrji</bpmn:incoming>
+      <bpmn:outgoing>Flow_1be9r6u</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_1jbwfuz" name="4) Conferir regras de negócio">
+      <bpmn:incoming>Flow_1be9r6u</bpmn:incoming>
+      <bpmn:outgoing>Flow_00b1v0y</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1be9r6u" sourceRef="Activity_15sxi4b" targetRef="Activity_1jbwfuz" />
+    <bpmn:sequenceFlow id="Flow_00b1v0y" sourceRef="Activity_1jbwfuz" targetRef="Activity_0r1pxc1" />
+    <bpmn:task id="Activity_0r1pxc1" name="5) Conferir validações">
+      <bpmn:incoming>Flow_00b1v0y</bpmn:incoming>
+      <bpmn:outgoing>Flow_0sgozza</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_11385tq" name="6) Conferir UX">
+      <bpmn:incoming>Flow_0sgozza</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dlw8jw</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0sgozza" sourceRef="Activity_0r1pxc1" targetRef="Activity_11385tq" />
+    <bpmn:task id="Activity_18rkphv" name="7) Conferir segurança (sessão, XSS, SQL Injection, CSRF, CORS...)">
+      <bpmn:incoming>Flow_1dlw8jw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m6w4j2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1dlw8jw" sourceRef="Activity_11385tq" targetRef="Activity_18rkphv" />
+    <bpmn:task id="Activity_1t1jhqh" name="8) Conferir integrações externas (Segurança, RateLimit, Custo)">
+      <bpmn:incoming>Flow_0m6w4j2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1m4kfq4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0m6w4j2" sourceRef="Activity_18rkphv" targetRef="Activity_1t1jhqh" />
+    <bpmn:task id="Activity_0j9l2cb" name="9) Conferir boas práticas no Código Fonte">
+      <bpmn:incoming>Flow_1m4kfq4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1szgu61</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1m4kfq4" sourceRef="Activity_1t1jhqh" targetRef="Activity_0j9l2cb" />
+    <bpmn:task id="Activity_122s13w" name="10) Criar tasks no Azure com melhorias encontradas">
+      <bpmn:incoming>Flow_1szgu61</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xi6nt4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1szgu61" sourceRef="Activity_0j9l2cb" targetRef="Activity_122s13w" />
+    <bpmn:endEvent id="Event_0hi29hy">
+      <bpmn:incoming>Flow_1xi6nt4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1xi6nt4" sourceRef="Activity_122s13w" targetRef="Event_0hi29hy" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0xnvvr4">
+      <bpmndi:BPMNEdge id="Flow_0m8wmxw_di" bpmnElement="Flow_0m8wmxw">
+        <di:waypoint x="192" y="99" />
+        <di:waypoint x="250" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d87f9r_di" bpmnElement="Flow_0d87f9r">
+        <di:waypoint x="350" y="99" />
+        <di:waypoint x="420" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1iwqrji_di" bpmnElement="Flow_1iwqrji">
+        <di:waypoint x="520" y="99" />
+        <di:waypoint x="590" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1be9r6u_di" bpmnElement="Flow_1be9r6u">
+        <di:waypoint x="690" y="99" />
+        <di:waypoint x="750" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00b1v0y_di" bpmnElement="Flow_00b1v0y">
+        <di:waypoint x="850" y="99" />
+        <di:waypoint x="920" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sgozza_di" bpmnElement="Flow_0sgozza">
+        <di:waypoint x="1020" y="99" />
+        <di:waypoint x="1090" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dlw8jw_di" bpmnElement="Flow_1dlw8jw">
+        <di:waypoint x="1190" y="99" />
+        <di:waypoint x="1270" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m6w4j2_di" bpmnElement="Flow_0m6w4j2">
+        <di:waypoint x="1370" y="99" />
+        <di:waypoint x="1430" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1m4kfq4_di" bpmnElement="Flow_1m4kfq4">
+        <di:waypoint x="1530" y="99" />
+        <di:waypoint x="1590" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1szgu61_di" bpmnElement="Flow_1szgu61">
+        <di:waypoint x="1690" y="99" />
+        <di:waypoint x="1750" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xi6nt4_di" bpmnElement="Flow_1xi6nt4">
+        <di:waypoint x="1850" y="99" />
+        <di:waypoint x="1912" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_0ekkhnd">
+        <dc:Bounds x="156" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1p7g172_di" bpmnElement="Activity_1p7g172">
+        <dc:Bounds x="250" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jbwfuz_di" bpmnElement="Activity_1jbwfuz">
+        <dc:Bounds x="750" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0r1pxc1_di" bpmnElement="Activity_0r1pxc1">
+        <dc:Bounds x="920" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11385tq_di" bpmnElement="Activity_11385tq">
+        <dc:Bounds x="1090" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18rkphv_di" bpmnElement="Activity_18rkphv">
+        <dc:Bounds x="1270" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1t1jhqh_di" bpmnElement="Activity_1t1jhqh">
+        <dc:Bounds x="1430" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nk5d2z_di" bpmnElement="Activity_0nk5d2z">
+        <dc:Bounds x="420" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15sxi4b_di" bpmnElement="Activity_15sxi4b">
+        <dc:Bounds x="590" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0j9l2cb_di" bpmnElement="Activity_0j9l2cb">
+        <dc:Bounds x="1590" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_122s13w_di" bpmnElement="Activity_122s13w">
+        <dc:Bounds x="1750" y="59" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0hi29hy_di" bpmnElement="Event_0hi29hy">
+        <dc:Bounds x="1912" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

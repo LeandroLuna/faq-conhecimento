@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1x46ya4" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="9.0.1">
+  <bpmn:process id="Process_1dw53b4" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1mjwi23" name="Adicionar opção de nota em formulário assign">
+      <bpmn:outgoing>Flow_0n1erem</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_1e8qqkx" name="Adicionar constante em constante TIPOS_ASSIGN_LABEL">
+      <bpmn:incoming>Flow_0vu1a3r</bpmn:incoming>
+      <bpmn:outgoing>Flow_11apqnj</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_1cvw5ph" name="Adicionar constante em constante TIPOS_ASSIGN">
+      <bpmn:incoming>Flow_11apqnj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uhe124</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_11apqnj" sourceRef="Activity_1e8qqkx" targetRef="Activity_1cvw5ph" />
+    <bpmn:task id="Activity_1yter20" name="Adicionar opção em formulário para a(s) regra(s)">
+      <bpmn:incoming>Flow_1uhe124</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ytf1s7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1uhe124" sourceRef="Activity_1cvw5ph" targetRef="Activity_1yter20" />
+    <bpmn:endEvent id="Event_0l0zau2" name="Fim">
+      <bpmn:incoming>Flow_0rj0nv5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Activity_0rl37ka" name="Criar constante para tipo de nota">
+      <bpmn:incoming>Flow_0n1erem</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vu1a3r</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0n1erem" sourceRef="StartEvent_1mjwi23" targetRef="Activity_0rl37ka" />
+    <bpmn:sequenceFlow id="Flow_0vu1a3r" sourceRef="Activity_0rl37ka" targetRef="Activity_1e8qqkx" />
+    <bpmn:task id="Activity_0og8653" name="Verificar se novo tipo de nota está sendo salvo">
+      <bpmn:incoming>Flow_1ytf1s7</bpmn:incoming>
+      <bpmn:incoming>Flow_1h0o7gl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zesm35</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1ytf1s7" sourceRef="Activity_1yter20" targetRef="Activity_0og8653" />
+    <bpmn:sequenceFlow id="Flow_0zesm35" sourceRef="Activity_0og8653" targetRef="Gateway_1ahvdm9" />
+    <bpmn:exclusiveGateway id="Gateway_1ahvdm9">
+      <bpmn:incoming>Flow_0zesm35</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rj0nv5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_16jlwoi</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0rj0nv5" name="Sim" sourceRef="Gateway_1ahvdm9" targetRef="Event_0l0zau2" />
+    <bpmn:task id="Activity_07qgpeo" name="Corrigir erros">
+      <bpmn:incoming>Flow_16jlwoi</bpmn:incoming>
+      <bpmn:outgoing>Flow_1h0o7gl</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_16jlwoi" name="Não" sourceRef="Gateway_1ahvdm9" targetRef="Activity_07qgpeo" />
+    <bpmn:sequenceFlow id="Flow_1h0o7gl" sourceRef="Activity_07qgpeo" targetRef="Activity_0og8653" />
+    <bpmn:textAnnotation id="TextAnnotation_1nkdtn6">
+      <bpmn:text>Em arquivo local/fiapdb/locallib.php</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1rprgpz" sourceRef="Activity_1e8qqkx" targetRef="TextAnnotation_1nkdtn6" />
+    <bpmn:association id="Association_0cb0v7d" sourceRef="Activity_1cvw5ph" targetRef="TextAnnotation_1nkdtn6" />
+    <bpmn:textAnnotation id="TextAnnotation_0ju788h">
+      <bpmn:text>Em arquivo mod/assign/mod_form.php
+
+Utilize o método addAssignType</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0922wto" sourceRef="Activity_1yter20" targetRef="TextAnnotation_0ju788h" />
+    <bpmn:textAnnotation id="TextAnnotation_16ua978">
+      <bpmn:text>Nome que será exibido no formulário</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0o08y74" sourceRef="Activity_1e8qqkx" targetRef="TextAnnotation_16ua978" />
+    <bpmn:textAnnotation id="TextAnnotation_0kdo0zw">
+      <bpmn:text>Com prefixo ASSIGN_TIPO
+
+Valor que será salvo no banco</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1s7i26h" sourceRef="Activity_0rl37ka" targetRef="TextAnnotation_0kdo0zw" />
+    <bpmn:association id="Association_0jl7otq" sourceRef="Activity_0rl37ka" targetRef="TextAnnotation_1nkdtn6" />
+    <bpmn:textAnnotation id="TextAnnotation_1nogw97">
+      <bpmn:text>Se ao salvar um assign com o novo tipo de nota, na listagem de conteúdos do curso o tipo está sendo exibido abaixo do nome do assign</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1b9423m" sourceRef="Activity_0og8653" targetRef="TextAnnotation_1nogw97" />
+    <bpmn:textAnnotation id="TextAnnotation_1gaah9s">
+      <bpmn:text>Possíveis erros: Estar acessando um curso em que a regra não aceita o novo tipo de nota, o tipo não foi adicionado corretamente em TIPOS_ASSIGN</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0ebq132" sourceRef="Activity_07qgpeo" targetRef="TextAnnotation_1gaah9s" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1dw53b4">
+      <bpmndi:BPMNEdge id="Flow_1h0o7gl_di" bpmnElement="Flow_1h0o7gl">
+        <di:waypoint x="1350" y="500" />
+        <di:waypoint x="1180" y="500" />
+        <di:waypoint x="1180" y="367" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16jlwoi_di" bpmnElement="Flow_16jlwoi">
+        <di:waypoint x="1400" y="352" />
+        <di:waypoint x="1400" y="460" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1405" y="403" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rj0nv5_di" bpmnElement="Flow_0rj0nv5">
+        <di:waypoint x="1425" y="327" />
+        <di:waypoint x="1602" y="327" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1504" y="309" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zesm35_di" bpmnElement="Flow_0zesm35">
+        <di:waypoint x="1230" y="327" />
+        <di:waypoint x="1375" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ytf1s7_di" bpmnElement="Flow_1ytf1s7">
+        <di:waypoint x="1020" y="327" />
+        <di:waypoint x="1130" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vu1a3r_di" bpmnElement="Flow_0vu1a3r">
+        <di:waypoint x="430" y="327" />
+        <di:waypoint x="530" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n1erem_di" bpmnElement="Flow_0n1erem">
+        <di:waypoint x="218" y="327" />
+        <di:waypoint x="330" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uhe124_di" bpmnElement="Flow_1uhe124">
+        <di:waypoint x="830" y="327" />
+        <di:waypoint x="920" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11apqnj_di" bpmnElement="Flow_11apqnj">
+        <di:waypoint x="630" y="327" />
+        <di:waypoint x="730" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1mjwi23">
+        <dc:Bounds x="182" y="309" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="360" width="83" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1e8qqkx_di" bpmnElement="Activity_1e8qqkx">
+        <dc:Bounds x="530" y="287" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cvw5ph_di" bpmnElement="Activity_1cvw5ph">
+        <dc:Bounds x="730" y="287" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yter20_di" bpmnElement="Activity_1yter20">
+        <dc:Bounds x="920" y="287" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0l0zau2_di" bpmnElement="Event_0l0zau2">
+        <dc:Bounds x="1602" y="309" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1611" y="352" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rl37ka_di" bpmnElement="Activity_0rl37ka">
+        <dc:Bounds x="330" y="287" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0og8653_di" bpmnElement="Activity_0og8653">
+        <dc:Bounds x="1130" y="287" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ahvdm9_di" bpmnElement="Gateway_1ahvdm9" isMarkerVisible="true">
+        <dc:Bounds x="1375" y="302" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07qgpeo_di" bpmnElement="Activity_07qgpeo">
+        <dc:Bounds x="1350" y="460" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1nkdtn6_di" bpmnElement="TextAnnotation_1nkdtn6">
+        <dc:Bounds x="532" y="460" width="145" height="45" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0ju788h_di" bpmnElement="TextAnnotation_0ju788h">
+        <dc:Bounds x="920" y="407" width="187" height="71" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_16ua978_di" bpmnElement="TextAnnotation_16ua978">
+        <dc:Bounds x="440" y="80" width="190" height="40" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0kdo0zw_di" bpmnElement="TextAnnotation_0kdo0zw">
+        <dc:Bounds x="330" y="165" width="200" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1nogw97_di" bpmnElement="TextAnnotation_1nogw97">
+        <dc:Bounds x="1130" y="90" width="205" height="84" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1gaah9s_di" bpmnElement="TextAnnotation_1gaah9s">
+        <dc:Bounds x="1490" y="580" width="180" height="98" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1rprgpz_di" bpmnElement="Association_1rprgpz">
+        <di:waypoint x="580" y="367" />
+        <di:waypoint x="580" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0cb0v7d_di" bpmnElement="Association_0cb0v7d">
+        <di:waypoint x="741" y="367" />
+        <di:waypoint x="650" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0922wto_di" bpmnElement="Association_0922wto">
+        <di:waypoint x="970" y="367" />
+        <di:waypoint x="970" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0o08y74_di" bpmnElement="Association_0o08y74">
+        <di:waypoint x="580" y="287" />
+        <di:waypoint x="580" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1s7i26h_di" bpmnElement="Association_1s7i26h">
+        <di:waypoint x="380" y="287" />
+        <di:waypoint x="380" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0jl7otq_di" bpmnElement="Association_0jl7otq">
+        <di:waypoint x="424" y="366" />
+        <di:waypoint x="532" y="462" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1b9423m_di" bpmnElement="Association_1b9423m">
+        <di:waypoint x="1180" y="287" />
+        <di:waypoint x="1180" y="174" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0ebq132_di" bpmnElement="Association_0ebq132">
+        <di:waypoint x="1449" y="533" />
+        <di:waypoint x="1518" y="580" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

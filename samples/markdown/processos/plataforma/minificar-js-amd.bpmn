@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_05qhyru" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="8.9.0">
+  <bpmn:process id="Process_1k4at7s" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1wehjix" name="Minificar JS AMD">
+      <bpmn:outgoing>Flow_1gjn891</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_1o1gjjd" name="Acessar o diretório do plugin">
+      <bpmn:incoming>Flow_1gjn891</bpmn:incoming>
+      <bpmn:outgoing>Flow_096yuqq</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1gjn891" sourceRef="StartEvent_1wehjix" targetRef="Activity_1o1gjjd" />
+    <bpmn:task id="Activity_0we1n4d" name="Crair o diretório amd, caso não exista">
+      <bpmn:incoming>Flow_096yuqq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ba3khz</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_096yuqq" sourceRef="Activity_1o1gjjd" targetRef="Activity_0we1n4d" />
+    <bpmn:task id="Activity_04bj12d" name="Dentro de /amd criar os diretórios src e build, caso não existam">
+      <bpmn:incoming>Flow_0ba3khz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ng9xfl</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0ba3khz" sourceRef="Activity_0we1n4d" targetRef="Activity_04bj12d" />
+    <bpmn:task id="Activity_0nrgjwh" name="Dentro de /src, criar um arquivo js">
+      <bpmn:incoming>Flow_0ng9xfl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0y7y5vs</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0ng9xfl" sourceRef="Activity_04bj12d" targetRef="Activity_0nrgjwh" />
+    <bpmn:task id="Activity_1q39ce5" name="Abrir um terminal na raiz do projeto">
+      <bpmn:incoming>Flow_0y7y5vs</bpmn:incoming>
+      <bpmn:outgoing>Flow_09v18xn</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0y7y5vs" sourceRef="Activity_0nrgjwh" targetRef="Activity_1q39ce5" />
+    <bpmn:task id="Activity_1hpvpn0" name="Executar o comando: gulp deploy">
+      <bpmn:incoming>Flow_09v18xn</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qj58of</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_09v18xn" sourceRef="Activity_1q39ce5" targetRef="Activity_1hpvpn0" />
+    <bpmn:endEvent id="Event_0n2ajlx" name="Fim">
+      <bpmn:incoming>Flow_1qj58of</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1qj58of" sourceRef="Activity_1hpvpn0" targetRef="Event_0n2ajlx" />
+    <bpmn:textAnnotation id="TextAnnotation_18fnhbo">
+      <bpmn:text>Será gerada uma versão minificada do seu js</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0ae9dvc" sourceRef="Activity_1hpvpn0" targetRef="TextAnnotation_18fnhbo" />
+    <bpmn:textAnnotation id="TextAnnotation_1ggv8iw">
+      <bpmn:text>Esse arquivo é a fonte que será usada para minificar</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0lb31rb" sourceRef="Activity_0nrgjwh" targetRef="TextAnnotation_1ggv8iw" />
+    <bpmn:textAnnotation id="TextAnnotation_0xco2ri">
+      <bpmn:text>/build é o diretório onde o gulp irá salvar seu arquivo minificado</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1g89p7o" sourceRef="Activity_04bj12d" targetRef="TextAnnotation_0xco2ri" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1k4at7s">
+      <bpmndi:BPMNShape id="TextAnnotation_18fnhbo_di" bpmnElement="TextAnnotation_18fnhbo">
+        <dc:Bounds x="1080" y="290" width="190" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1ggv8iw_di" bpmnElement="TextAnnotation_1ggv8iw">
+        <dc:Bounds x="830" y="80" width="250" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0xco2ri_di" bpmnElement="TextAnnotation_0xco2ri">
+        <dc:Bounds x="630" y="280" width="200" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1gjn891_di" bpmnElement="Flow_1gjn891">
+        <di:waypoint x="192" y="209" />
+        <di:waypoint x="250" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_096yuqq_di" bpmnElement="Flow_096yuqq">
+        <di:waypoint x="350" y="209" />
+        <di:waypoint x="410" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ba3khz_di" bpmnElement="Flow_0ba3khz">
+        <di:waypoint x="510" y="209" />
+        <di:waypoint x="570" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ng9xfl_di" bpmnElement="Flow_0ng9xfl">
+        <di:waypoint x="670" y="209" />
+        <di:waypoint x="730" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0y7y5vs_di" bpmnElement="Flow_0y7y5vs">
+        <di:waypoint x="830" y="209" />
+        <di:waypoint x="890" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09v18xn_di" bpmnElement="Flow_09v18xn">
+        <di:waypoint x="990" y="209" />
+        <di:waypoint x="1050" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qj58of_di" bpmnElement="Flow_1qj58of">
+        <di:waypoint x="1150" y="209" />
+        <di:waypoint x="1212" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1wehjix">
+        <dc:Bounds x="156" y="191" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="133" y="234" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1o1gjjd_di" bpmnElement="Activity_1o1gjjd">
+        <dc:Bounds x="250" y="169" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0we1n4d_di" bpmnElement="Activity_0we1n4d">
+        <dc:Bounds x="410" y="169" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04bj12d_di" bpmnElement="Activity_04bj12d">
+        <dc:Bounds x="570" y="169" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nrgjwh_di" bpmnElement="Activity_0nrgjwh">
+        <dc:Bounds x="730" y="169" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1q39ce5_di" bpmnElement="Activity_1q39ce5">
+        <dc:Bounds x="890" y="169" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hpvpn0_di" bpmnElement="Activity_1hpvpn0">
+        <dc:Bounds x="1050" y="169" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0n2ajlx_di" bpmnElement="Event_0n2ajlx">
+        <dc:Bounds x="1212" y="191" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1222" y="234" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0ae9dvc_di" bpmnElement="Association_0ae9dvc">
+        <di:waypoint x="1113" y="249" />
+        <di:waypoint x="1125" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0lb31rb_di" bpmnElement="Association_0lb31rb">
+        <di:waypoint x="815" y="169" />
+        <di:waypoint x="858" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1g89p7o_di" bpmnElement="Association_1g89p7o">
+        <di:waypoint x="648" y="249" />
+        <di:waypoint x="670" y="280" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

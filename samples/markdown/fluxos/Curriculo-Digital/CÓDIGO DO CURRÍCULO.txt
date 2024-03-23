@@ -1,0 +1,48 @@
+padrão de  código de currículo:
+
+3 caracteres (A-Z) identificadores do curso
+1 caracter (P - presencial/ O - EAD) identificador da modalidade
+4 caracteres (0-9) identificadores do ano
+1 hífen
+1 caracter identificador do semestre (1 ou 2)
+1 caracter (A-Z) identificador da versão
+
+Exemplo:
+ADMP2023-1A
+
+Administração Presencial
+ano 2023
+1º semestre
+versão A
+
+
+Lista
+ADMP
+ADSP
+ADSO
+TBDP
+TBDO
+TCNP
+TCNO
+TSCP
+TSCO
+TDCP
+TDCO
+ENCP
+ENCO
+EMEP
+GTIP
+GTIO
+TIAP
+TIAO
+TJDP
+TJDO
+MKTP
+MKTO
+PMUP
+PMUO
+TRCP
+SINP
+SINO
+TSIP
+TSIO
