@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import shutil
 
 from config import OPENAI_KEY
 from langchain_community.document_loaders import PyPDFLoader
@@ -11,9 +12,16 @@ from langchain_openai import OpenAI
 
 os.environ['OPENAI_API_KEY'] = OPENAI_KEY
 
+# Clearing the data and tmp directories
+# shutil.rmtree('./data')
+# shutil.rmtree('./tmp')
+# os.makedirs('./data')
+# os.makedirs('./tmp')    
+
 options = [
     'Train',
-    'Chat with my file(s)'
+    'Chat with my file(s)',
+    'Restart chatbot history'
 ]
 
 select_options = st.sidebar.selectbox(
@@ -41,7 +49,8 @@ if select_options == options[0]:
             vectordb.persist()
             st.session_state.vectordb = vectordb
             st.success('Successfully trained your AI!')
-else: 
+
+if select_options == options[1]: 
     if 'vectordb' not in st.session_state or st.session_state.vectordb is None:
         st.warning('You need to first train your AI')
     else:
@@ -82,3 +91,7 @@ else:
                 # message2.write("\n" + metadata_info)
 
                 st.session_state.history.append(('Chat', result['result']))
+
+if select_options == options[2]:
+    st.session_state.history = []
+    st.success('Session history restarted!')
