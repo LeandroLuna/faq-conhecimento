@@ -66,7 +66,7 @@ if select_options == options[1]:
 
                 message2 = st.chat_message('Chat')
 
-                # Append metadata information to the response. Must comment line before this one to work.
+                # Append metadata information to the response.
                 answer = result['result'] + "\n\n --- \n\n"
                 metadata_info = ""
                 for doc in result['source_documents']:
