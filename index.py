@@ -13,7 +13,7 @@ os.environ['OPENAI_API_KEY'] = OPENAI_KEY
 
 options = [
     'Train',
-    'Chat with my file'
+    'Chat with my file(s)'
 ]
 
 select_options = st.sidebar.selectbox(
@@ -22,13 +22,14 @@ select_options = st.sidebar.selectbox(
 )
 
 if select_options == options[0]:
-    st.text('Select the PDF to train your chatbot:')
-    file = st.file_uploader('File:', ['.pdf'])
-    if file:
+    st.text('Select the PDF(s) class(es) to train your chatbot:')
+    files = st.file_uploader('File:', accept_multiple_files=True, type=['pdf'])
+    if files:
         if st.button('Train'): 
-            with open('./tmp/' + file.name, "wb") as f:
-                f.write(file.getbuffer())
-            pdf_loader = PyPDFLoader('./tmp/' + file.name)
+            for file in files:
+                with open('./tmp/' + file.name, "wb") as f:
+                    f.write(file.getbuffer())
+                    pdf_loader = PyPDFLoader('./tmp/' + file.name)
             documents = pdf_loader.load()
             text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
             documents = text_splitter.split_documents(documents)
@@ -67,9 +68,10 @@ else:
                 result = qa_chain({'query': prompt})
 
                 message2 = st.chat_message('Chat')
-                message2.write(result['result'] + "\n\n --- \n\n")
+                message2.write(result['result'])
 
-                # Append metadata information to the response
+                # Append metadata information to the response. Must comment line before this one to work.
+                # message2.write(result['result'] + "\n\n --- \n\n")
                 # metadata_info = "References List:\n\n"
                 # reference_count = 1
                 # for doc in result['source_documents']:
