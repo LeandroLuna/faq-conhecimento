@@ -1,7 +1,6 @@
 streamlit
 langchain
 chromadb
-pypdf
 openai
 tiktoken
 langchain-community

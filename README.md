@@ -12,7 +12,7 @@ Este é um projeto que propõe o desenvolvimento de um indexador para a base de 
 
 ### 1. Treinamento
 
-A primeira funcionalidade permite treinar o chatbot arquivos MARKDOWN. Você pode seguir os passos abaixo para treinar seu chatbot:
+A primeira funcionalidade permite treinar o chatbot com arquivos MARKDOWN. Você pode seguir os passos abaixo para treinar seu chatbot:
 
 - Selecione a opção "Train" no menu lateral.
 - Informe a pasta com os arquivos MARKDOWN que deseja utilizar para treinar o chatbot.
@@ -27,6 +27,13 @@ A segunda funcionalidade permite interagir com o chatbot treinado à partir dos 
 - Selecione a opção "Chat with my files" no menu lateral.
 - Caso o chatbot ainda não tenha sido treinado, será exibida uma mensagem de aviso.
 - Caso o chatbot tenha sido treinado com sucesso, você poderá iniciar uma conversa com os arquivos MARKDOWN.
+
+### 3. Limpar histórico de conversa
+
+A terceira funcionalidade possibilita reiniciar o histórico de conversa com o Chatbot.
+
+- Selecione a opção "Restart" no menu lateral.
+- Em seguida, verifique na seção "Chat with my files" a conversa reiniciada.
 
 ## Como Usar
 
