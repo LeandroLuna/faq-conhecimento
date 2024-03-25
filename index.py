@@ -13,7 +13,7 @@ from langchain.chains import RetrievalQA
 @st.cache_data(show_spinner=False) # Cache the app configuration to avoid loading it multiple times
 def app_config():
     PERSIST_DIRECTORY='./data'
-    MARKDOWN_DIRECTORY='./samples/markdown'
+    MARKDOWN_DIRECTORY='./docs'
 
     return OPENAI_KEY, PERSIST_DIRECTORY, MARKDOWN_DIRECTORY
 
@@ -25,10 +25,10 @@ st.set_page_config(page_title="FIAP - FAQ Conhecimento")
 @st.cache_resource(show_spinner="Loading model..")  # Cache the model to avoid loading it multiple times
 def load_model():
     if 'vectordb' not in st.session_state or st.session_state.vectordb is None:
-        try:
-            vectordb = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=OpenAIEmbeddings())
-            return vectordb
-        except:
+        vectordb = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=OpenAIEmbeddings())
+        CURRENT_INDEXED_DOCUMENTS = len(vectordb.get()['documents'])
+
+        if(CURRENT_INDEXED_DOCUMENTS == 0):
             md_loader = DirectoryLoader(MARKDOWN_DIRECTORY, glob="**/*.md")
             documents = md_loader.load()
             text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -39,7 +39,12 @@ def load_model():
                 persist_directory=PERSIST_DIRECTORY
             )
             vectordb.persist()
+            print('Model created successfully!')
             return vectordb
+        else:
+            print('Model loaded successfully!')
+            return vectordb
+        
 
 # Initialize the model
 st.session_state.vectordb = load_model()
@@ -55,6 +60,7 @@ select_options = st.sidebar.selectbox(
     options
 )
 
+# Clear chat history button
 def clear_button():
     if st.button('Clear chat history'):
         if len(st.session_state.history) > 0:
@@ -122,7 +128,7 @@ elif select_options == options[1]:
                     metadata_info = ""
                     for doc in result['source_documents']:
                         source_path = doc.metadata.get('source')
-                        formatted_source = source_path.replace('\\', '/').replace('samples/markdown/', '')[:-3]
+                        formatted_source = source_path.replace('\\', '/').replace('docs/', '')[:-3] # Replace backslashes and remove 'docs/' and '.md' from the path
                         metadata_str = f"{formatted_source}:\n\nGitlab: https://gitlab.fiap.com.br/fiap/base-de-conhecimento/-/blob/master/docs/{formatted_source}.md\n\nDeploy: http://conhecimento.fiap.com.br/{formatted_source}\n\n --- \n\n"
                         if metadata_str not in metadata_info:
                             metadata_info += metadata_str
