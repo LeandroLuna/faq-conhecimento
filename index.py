@@ -131,23 +131,27 @@ elif select_options == options[1]:
                         return_source_documents=True,
                         retriever=st.session_state.vectordb.as_retriever(search_kwargs={'k': 3})
                     )
-                    result = qa_chain({'query': prompt})
+                    try:
+                        result = qa_chain({'query': prompt})
 
-                    chatbot_message = st.chat_message('Chat')
+                        chatbot_message = st.chat_message('Chat')
 
-                    # Append metadata information to the response.
-                    answer = result['result'] + "\n\n --- \n\n"
-                    metadata_info = ""
-                    for doc in result['source_documents']:
-                        source_path = doc.metadata.get('source')
-                        formatted_source = source_path.replace('\\', '/').replace('docs/', '')[:-3] # Replace backslashes and remove 'docs/' and '.md' from the path
-                        metadata_str = f"{formatted_source}:\n\nGitlab: https://gitlab.fiap.com.br/fiap/base-de-conhecimento/-/blob/master/docs/{formatted_source}.md\n\nDeploy: http://conhecimento.fiap.com.br/{formatted_source}\n\n --- \n\n"
-                        if metadata_str not in metadata_info:
-                            metadata_info += metadata_str
-                    metadata_info = metadata_info.rsplit('--- \n\n', 1)[0] # Remove last separator
-                    answer += "\n" + metadata_info
+                        # Append metadata information to the response.
+                        answer = result['result'] + "\n\n --- \n\n"
+                        metadata_info = ""
+                        for doc in result['source_documents']:
+                            source_path = doc.metadata.get('source')
+                            formatted_source = source_path.replace('\\', '/').replace('docs/', '')[:-3] # Replace backslashes and remove 'docs/' and '.md' from the path
+                            metadata_str = f"{formatted_source}:\n\nGitlab: https://gitlab.fiap.com.br/fiap/base-de-conhecimento/-/blob/master/docs/{formatted_source}.md\n\nDeploy: http://conhecimento.fiap.com.br/{formatted_source}\n\n --- \n\n"
+                            if metadata_str not in metadata_info:
+                                metadata_info += metadata_str
+                        metadata_info = metadata_info.rsplit('--- \n\n', 1)[0] # Remove last separator
+                        answer += "\n" + metadata_info
 
-                    chatbot_message.write(answer)
-                    st.session_state.history.append(('Chat', answer))
+                        chatbot_message.write(answer)
+                        st.session_state.history.append(('Chat', answer))
+                    except Exception as e:
+                        print(e.message)
+                        st.error(f"An error occurred while processing the request:\n\n{e}")                    
     else:
         st.warning('Please, inform your API key.')
