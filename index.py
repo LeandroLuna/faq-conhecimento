@@ -46,7 +46,6 @@ def load_model():
         else:
             print('Model loaded successfully!')
             return vectordb
-        
 
 # Initialize the model
 st.session_state.vectordb = load_model()
@@ -151,7 +150,6 @@ elif select_options == options[1]:
                         chatbot_message.write(answer)
                         st.session_state.history.append(('Chat', answer))
                     except Exception as e:
-                        print(e.message)
                         st.error(f"An error occurred while processing the request:\n\n{e}")                    
     else:
         st.warning('Please, inform your API key.')
