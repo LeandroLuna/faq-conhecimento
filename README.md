@@ -35,7 +35,11 @@ A terceira funcionalidade possibilita reiniciar o histórico de conversa com o C
 - Selecione a opção "Restart" no menu lateral.
 - Em seguida, verifique na seção "Chat with my files" a conversa reiniciada.
 
-## Como Usar
+## Como usar
+
+Existem duas maneiras de utilizar a aplicação. A abordagem convencional envolve a instalação dos módulos diretamente na máquina, enquanto a segunda opção é isolar um ambiente de desenvolvimento usando o VENV. Esta última é recomendada para evitar conflitos com os módulos previamente instalados em sua máquina.
+
+### Método 1: Convencional
 
 1. **Instalação das Dependências:** Antes de executar o código, é necessário instalar as dependências do projeto. Você pode fazer isso executando o seguinte comando:
     ```python
@@ -52,6 +56,41 @@ A terceira funcionalidade possibilita reiniciar o histórico de conversa com o C
 4. **Treinamento do Chatbot:** Informe o diretório dos arquivos MARKDOWN e clique no botão "Train" para treinar o chatbot.
 
 5. **Interagindo com o Chatbot:** Se o treinamento for bem-sucedido, você poderá iniciar uma conversa com o arquivo MARKDOWN carregado.
+
+### Método 2: Ambiente Virtual (VENV)
+
+1. **Instalação do virtualenv**: 
+    ```bash
+    pip install virtualenv
+    ````
+
+2. **Criação do ambiente virtual**:
+    ```bash
+    python<versao> -m venv <nome-do-ambiente-virtual>
+    ```
+
+    Exemplo:
+    ```bash
+    python3 -m venv env
+    ```
+
+4. **Ativação do ambiente virtual**:
+    - CMD:
+    ```bash
+    env\Scripts\activate.bat
+    ```
+
+    - PowerShell:
+    ```powershell
+    env\Scripts\Activate.ps1
+    ```
+
+5. Agora é possivel utilizar os passos 1 ao 5 do método anterior.
+
+6. **Desativação do ambiente virtual**:
+    ```bash
+    deactivate
+    ```
 
 ## Contribuindo
 
