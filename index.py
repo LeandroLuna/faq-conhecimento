@@ -56,18 +56,16 @@ select_options = st.sidebar.selectbox(
 )
 
 def clear_button():
-    col1, col2 = st.columns([0.7, 0.3])
-    with col2:
-        if st.button('Clear chat history'):
-            if len(st.session_state.history) > 0:
-                st.session_state.history = []
-                success_clear = st.success('Session history cleared!')
-                time.sleep(2)
-                success_clear.empty()
-            else:
-                warning_clear = st.warning('There is no history to clear.')
-                time.sleep(2)
-                warning_clear.empty()
+    if st.button('Clear chat history'):
+        if len(st.session_state.history) > 0:
+            st.session_state.history = []
+            success_clear = st.success('Session history cleared!')
+            time.sleep(2)
+            success_clear.empty()
+        else:
+            warning_clear = st.warning('There is no history to clear.')
+            time.sleep(2)
+            warning_clear.empty()
 
 # Initialize the key to store the previous input API key
 if 'previous_api_key_input' not in st.session_state:
@@ -76,7 +74,7 @@ if 'previous_api_key_input' not in st.session_state:
 # Menu options
 # Set the API key
 if select_options == options[0]:
-    st.session_state.input_api_key = st.text_input('Enter your API key to chat with the model. Press \'Enter\' to save it correctly! ', value=st.session_state.previous_api_key_input, type='password', help='Get it from official OpenAI platform: https://platform.openai.com/api-keys')
+    st.session_state.input_api_key = st.text_input('Enter your API key to chat with the model. Press \'Enter\' to ensure it was saved correctly! ', value=st.session_state.previous_api_key_input, type='password', help='Get it from official OpenAI platform: https://platform.openai.com/api-keys')
     if st.session_state.input_api_key != st.session_state.previous_api_key_input:
         success = st.success('API key successfully set!')
         time.sleep(2)
