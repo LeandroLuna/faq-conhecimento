@@ -6,65 +6,95 @@ from config import OPENAI_KEY
 from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings, OpenAI
 from langchain.chains import RetrievalQA
-from langchain_openai import OpenAI
 
-os.environ['OPENAI_API_KEY'] = OPENAI_KEY
-PERSIST_DIRECTORY='./data'
-MARKDOWN_DIRECTORY='./samples/markdown'
+# Set the app configuration
+@st.cache_data(show_spinner=False) # Cache the app configuration to avoid loading it multiple times
+def app_config():
+    PERSIST_DIRECTORY='./data'
+    MARKDOWN_DIRECTORY='./samples/markdown'
 
+    return OPENAI_KEY, PERSIST_DIRECTORY, MARKDOWN_DIRECTORY
+
+# Load the app configuration
+os.environ['OPENAI_API_KEY'], PERSIST_DIRECTORY, MARKDOWN_DIRECTORY = app_config()
 st.set_page_config(page_title="FIAP - FAQ Conhecimento")
 
-# Initialize the model
-if 'vectordb' not in st.session_state or st.session_state.vectordb is None:
-    try:
-        vectordb = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=OpenAIEmbeddings())
-        st.session_state.vectordb = vectordb
-    except:
-        md_loader = DirectoryLoader(MARKDOWN_DIRECTORY, glob="**/*.md")
-        documents = md_loader.load()
-        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-        documents = text_splitter.split_documents(documents)
-        vectordb = Chroma.from_documents(
-            documents,
-            embedding=OpenAIEmbeddings(),
-            persist_directory=PERSIST_DIRECTORY
-        )
-        vectordb.persist()
-        st.session_state.vectordb = vectordb
+# Load the model
+@st.cache_resource(show_spinner="Loading model..")  # Cache the model to avoid loading it multiple times
+def load_model():
+    if 'vectordb' not in st.session_state or st.session_state.vectordb is None:
+        try:
+            vectordb = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=OpenAIEmbeddings())
+            return vectordb
+        except:
+            md_loader = DirectoryLoader(MARKDOWN_DIRECTORY, glob="**/*.md")
+            documents = md_loader.load()
+            text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+            documents = text_splitter.split_documents(documents)
+            vectordb = Chroma.from_documents(
+                documents,
+                embedding=OpenAIEmbeddings(),
+                persist_directory=PERSIST_DIRECTORY
+            )
+            vectordb.persist()
+            return vectordb
 
+# Initialize the model
+st.session_state.vectordb = load_model()
+
+# Set the sidebar options
 options = [
-    'Set API Key',
-    'Chat with my file(s)',
-    'Restart chatbot history'
-]
+        'Set API Key',
+        'Chat with my file(s)'
+    ]
 
 select_options = st.sidebar.selectbox(
     'What would you like to do?',
     options
 )
 
-st.session_state.previous_api_key_input = ''
+def clear_button():
+    col1, col2 = st.columns([0.7, 0.3])
+    with col2:
+        if st.button('Clear chat history'):
+            if len(st.session_state.history) > 0:
+                st.session_state.history = []
+                success_clear = st.success('Session history cleared!')
+                time.sleep(2)
+                success_clear.empty()
+            else:
+                warning_clear = st.warning('There is no history to clear.')
+                time.sleep(2)
+                warning_clear.empty()
 
+# Initialize the key to store the previous input API key
+if 'previous_api_key_input' not in st.session_state:
+    st.session_state.previous_api_key_input = ''
+
+# Menu options
+# Set the API key
 if select_options == options[0]:
-    st.session_state.input_api_key = st.text_input('Enter your API key to chat with the model. Get it from official OpenAI platform: https://platform.openai.com/api-keys', value=st.session_state['previous_api_key_input'])
-    if st.session_state['input_api_key'] != st.session_state['previous_api_key_input']:
-        os.environ['OPENAI_API_KEY'] = input_api_key
+    st.session_state.input_api_key = st.text_input('Enter your API key to chat with the model. Press \'Enter\' to save it correctly! ', value=st.session_state.previous_api_key_input, type='password', help='Get it from official OpenAI platform: https://platform.openai.com/api-keys')
+    if st.session_state.input_api_key != st.session_state.previous_api_key_input:
         success = st.success('API key successfully set!')
         time.sleep(2)
         success.empty()
-        st.session_state['previous_api_key_input'] = st.session_state['input_api_key']
-    elif st.session_state['input_api_key'] == '':    
+        st.session_state['previous_api_key_input'] = st.session_state.input_api_key
+    elif st.session_state.input_api_key == '':    
         st.error('Please, inform your API key.')
     else:
-        st.warning('You did not change the API key.')
+        st.info('You did not change the API key.')
 
-if select_options == options[1]:
-    if st.session_state['input_api_key'] != '':
+# Chat with the model
+elif select_options == options[1]:
+    if st.session_state.input_api_key != '':
         if 'vectordb' not in st.session_state or st.session_state.vectordb is None:
             st.error('An error ocurred while loading the model. Please, refresh this page and try again.')
         else:
+            clear_button()
+
             if 'history' not in st.session_state or st.session_state.history is None:
                 st.session_state.history = []
 
@@ -75,19 +105,19 @@ if select_options == options[1]:
             prompt = st.chat_input("Chat with your files.")
 
             if prompt:    
-                message = st.chat_message('User')
-                message.write(prompt)
+                user_message = st.chat_message('User')
+                user_message.write(prompt)
                 st.session_state.history.append(('User', prompt))
 
                 with st.spinner('Please wait...'):
                     qa_chain = RetrievalQA.from_chain_type(
-                        llm=OpenAI(api_key=os.environ['OPENAI_API_KEY']),
+                        llm=OpenAI(api_key=st.session_state.input_api_key),
                         return_source_documents=True,
                         retriever=st.session_state.vectordb.as_retriever(search_kwargs={'k': 3})
                     )
                     result = qa_chain({'query': prompt})
 
-                    message2 = st.chat_message('Chat')
+                    chatbot_message = st.chat_message('Chat')
 
                     # Append metadata information to the response.
                     answer = result['result'] + "\n\n --- \n\n"
@@ -101,11 +131,7 @@ if select_options == options[1]:
                     metadata_info = metadata_info.rsplit('--- \n\n', 1)[0] # Remove last separator
                     answer += "\n" + metadata_info
 
-                    message2.write(answer)
+                    chatbot_message.write(answer)
                     st.session_state.history.append(('Chat', answer))
     else:
         st.warning('Please, inform your API key.')
-
-if select_options == options[2]:
-    st.session_state.history = []
-    st.success('Session history restarted!')
