@@ -1,12 +1,13 @@
-# faq-conhecimento
+# FAQ - Conhecimento
 
 Este é um projeto que propõe o desenvolvimento de um indexador para a base de conhecimento, inspirado no serviço Kendra da AWS. A motivação por trás desse projeto é fornecer uma alternativa mais acessível ao Kendra, que muitas vezes pode ter custos elevados. Em vez de utilizar diretamente o Kendra, a ideia é criar manualmente um indexador utilizando ferramentas de _Large Language Model_ (LLM) e _Natural Language Processing_ (NLP). Dessa forma, será possível acessar informações de documentos de maneira mais direcionada e eficiente.
 
 ## Tecnologias
 
-- **Streamlit:** Uma biblioteca de código aberto para criação de aplicativos da web interativos com Python.
-- **Python:** Linguagem de programação amplamente utilizada, conhecida por sua simplicidade e versatilidade.
-- **OpenAI:** Uma plataforma de IA que fornece acesso a modelos de linguagem poderosos e ferramentas de processamento de linguagem natural.
+- **Python:** linguagem de programação amplamente utilizada, conhecida por sua simplicidade e versatilidade.
+- **Streamlit:** uma biblioteca de código aberto para criação de aplicativos da web interativos com Python.
+- **Langchain:** framework projetado para simplificar a criação de aplicativos usando LLM.
+- **OpenAI:** uma plataforma de IA que fornece acesso a modelos de linguagem poderosos e ferramentas de processamento de linguagem natural.
 
 ## Como utilizar
 
@@ -26,9 +27,7 @@ Existem duas maneiras de utilizar a aplicação. A abordagem convencional envolv
     streamlit run index.py
     ```
 
-4. **Treinamento do Chatbot:** Informe o diretório dos arquivos MARKDOWN e clique no botão "Train" para treinar o chatbot.
-
-5. **Interagindo com o Chatbot:** Se o treinamento for bem-sucedido, você poderá iniciar uma conversa com o arquivo MARKDOWN carregado.
+4. **Interagindo com o Chatbot:** Se o treinamento for bem-sucedido, você poderá iniciar uma conversa com o arquivo MARKDOWN carregado.
 
 ### Método 2: Ambiente Virtual (VENV)
 
