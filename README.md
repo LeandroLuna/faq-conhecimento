@@ -8,34 +8,7 @@ Este é um projeto que propõe o desenvolvimento de um indexador para a base de 
 - **Python:** Linguagem de programação amplamente utilizada, conhecida por sua simplicidade e versatilidade.
 - **OpenAI:** Uma plataforma de IA que fornece acesso a modelos de linguagem poderosos e ferramentas de processamento de linguagem natural.
 
-## Funcionalidades
-
-### 1. Treinamento
-
-A primeira funcionalidade permite treinar o chatbot com arquivos MARKDOWN. Você pode seguir os passos abaixo para treinar seu chatbot:
-
-- Selecione a opção "Train" no menu lateral.
-- Informe a pasta com os arquivos MARKDOWN que deseja utilizar para treinar o chatbot.
-- Clique no botão "Train" para iniciar o processo de treinamento. Os arquivos serão indexados recursivamente.  
-
-Após o treinamento ser concluído com sucesso, você poderá usar o chatbot para interagir com o conteúdo dos arquivos MARKDOWN.
-
-### 2. Chat com o Arquivo
-
-A segunda funcionalidade permite interagir com o chatbot treinado à partir dos arquivos MARKDOWN. Para utilizar essa funcionalidade:
-
-- Selecione a opção "Chat with my files" no menu lateral.
-- Caso o chatbot ainda não tenha sido treinado, será exibida uma mensagem de aviso.
-- Caso o chatbot tenha sido treinado com sucesso, você poderá iniciar uma conversa com os arquivos MARKDOWN.
-
-### 3. Limpar histórico de conversa
-
-A terceira funcionalidade possibilita reiniciar o histórico de conversa com o Chatbot.
-
-- Selecione a opção "Restart" no menu lateral.
-- Em seguida, verifique na seção "Chat with my files" a conversa reiniciada.
-
-## Como usar
+## Como utilizar
 
 Existem duas maneiras de utilizar a aplicação. A abordagem convencional envolve a instalação dos módulos diretamente na máquina, enquanto a segunda opção é isolar um ambiente de desenvolvimento usando o VENV. Esta última é recomendada para evitar conflitos com os módulos previamente instalados em sua máquina.
 
