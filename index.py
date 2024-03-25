@@ -1,4 +1,5 @@
 import streamlit as st
+import extra_streamlit_components as stx
 import os
 import time 
 
@@ -14,6 +15,7 @@ from langchain.chains import RetrievalQA
 def app_config():
     PERSIST_DIRECTORY='./data'
     MARKDOWN_DIRECTORY='./docs'
+    ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365
 
     return OPENAI_KEY, PERSIST_DIRECTORY, MARKDOWN_DIRECTORY
 
@@ -49,6 +51,19 @@ def load_model():
 # Initialize the model
 st.session_state.vectordb = load_model()
 
+# Initialize the cookies
+@st.cache_resource(experimental_allow_widgets=True)
+def get_manager():
+    return stx.CookieManager()
+
+cookie_manager = get_manager()
+
+if 'previous_api_key_input' not in st.session_state: # Initialize the key to store the previous input API key
+    st.session_state.previous_api_key_input = ''
+
+if cookie_manager.get("st-api-key") is not None:
+    st.session_state.previous_api_key_input = cookie_manager.get(cookie="st-api-key")
+
 # Set the sidebar options
 options = [
         'Set API Key',
@@ -73,19 +88,15 @@ def clear_button():
             time.sleep(2)
             warning_clear.empty()
 
-# Initialize the key to store the previous input API key
-if 'previous_api_key_input' not in st.session_state:
-    st.session_state.previous_api_key_input = ''
-
 # Menu options
 # Set the API key
 if select_options == options[0]:
     st.session_state.input_api_key = st.text_input('Enter your API key to chat with the model. Press \'Enter\' to ensure it was saved correctly! ', value=st.session_state.previous_api_key_input, type='password', help='Get it from official OpenAI platform: https://platform.openai.com/api-keys')
     if st.session_state.input_api_key != st.session_state.previous_api_key_input:
+        cookie_manager.set(name="st-api-key", value=st.session_state.input_api_key, expires=ONE_YEAR_IN_SECONDS)
         success = st.success('API key successfully set!')
         time.sleep(2)
         success.empty()
-        st.session_state['previous_api_key_input'] = st.session_state.input_api_key
     elif st.session_state.input_api_key == '':    
         st.error('Please, inform your API key.')
     else:
